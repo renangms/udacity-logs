@@ -1,9 +1,15 @@
+#!/usr/bin/python
+
+"""Udacity Log Analysis Project"""
+
 import psycopg2
 
 DBNAME = "news"
 
 
 def popular_articles():
+    """3 most popular articles of all time."""
+
     query = """
     select title, count(*) as c from articles, log
     where log.path like concat('%', articles.slug, '%')
@@ -13,6 +19,8 @@ def popular_articles():
 
 
 def popular_authors():
+    """Most popular authors of all time."""
+
     query = """
     select author_article.name, count(*) as c
     from author_article, log
@@ -24,6 +32,8 @@ def popular_authors():
 
 
 def errors_per_day():
+    """Days with more than 1% of requests lead to errors."""
+
     query = """
     select requests_per_day.date,
     round(errors_per_day.count * 100.0 / requests_per_day.count, 2)
@@ -35,6 +45,20 @@ def errors_per_day():
 
 
 def execute_query(query):
+    """Execute query in news database for given query.
+
+    Parameters
+    ----------
+
+    query: str
+        SQL query
+
+    Returns
+    -------
+        List of rows of a query resut.
+
+    """
+
     db = psycopg2.connect(database=DBNAME)
     c = db.cursor()
     c.execute(query)
