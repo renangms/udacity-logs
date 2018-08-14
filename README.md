@@ -4,7 +4,7 @@
 ## About
 This project is to create a reporting tool that prints out reports (in plain text) based on the data in the database. This reporting tool is a Python program using the psycopg2 module to connect to the database. 
 
-Here are the questions the reporting tool should answer. The example answers given aren't the right ones, though!
+Here are the questions the reporting tool should answer:
 
  1. What are the most popular three articles of all time? 
  2. Who are the most popular article authors of all time?
