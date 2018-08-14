@@ -1,31 +1,52 @@
-# udacity-logs
-Source code for Log Analysis Project
+# Logs Analysis Project
+#### Udacity - [Full Stack Web Developer Nanodegree](https://www.udacity.com/course/full-stack-web-developer-nanodegree--nd004)
 
-## VM setup
+## About
+This project is to create a reporting tool that prints out reports (in plain text) based on the data in the database. This reporting tool is a Python program using the psycopg2 module to connect to the database. 
 
-### Start VM
+Here are the questions the reporting tool should answer. The example answers given aren't the right ones, though!
+
+ 1. What are the most popular three articles of all time? 
+ 2. Who are the most popular article authors of all time?
+ 3. On which days did more than 1% of requests lead to errors?
+
+## Requirements
+ * [Python3](https://www.python.org/)
+ * [Vagrant](https://www.vagrantup.com/)
+ * [VirtualBox](https://www.virtualbox.org/)
+
+## VM Setup
+
+#### Get VM files
 ```
+$ git clone https://github.com/udacity/fullstack-nanodegree-vm
+```
+
+#### Start VM
+```
+$ cd vagrant
 $ vagrant up
 ```
 
-### Login
+#### Login
 ```
 $ vagrant ssh
 ```
 
 ## Database setup
+Download database from [here](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip). Extract newsdata.sql file.
 
-### Load data
+#### Load data
 ```
 $ psql -d news -f newsdata.sql
 ```
 
-### Connect to database
+#### Connect to database
 ```
 $ psql -d news
 ```
 
-### Create views
+#### Create views
 
 ```
 news=> create view article_request as select title, slug, log.time from articles, log where log.path like CONCAT('/article/', articles.slug) and status = '200 OK';
@@ -45,5 +66,5 @@ news=> create view errors_per_day as select DATE(time) as date, count(*) from lo
 
 ## How to run
 ```
-python log.py
+$ python log.py
 ```
